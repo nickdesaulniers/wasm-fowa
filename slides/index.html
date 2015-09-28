@@ -20,6 +20,9 @@
       .reveal p, .reveal small, .reveal li {
         font-style: italic;
       }
+      .orange {
+        color: #FF9500;
+      }
     </style>
   </head>
   <body>
@@ -41,7 +44,7 @@
         <section>
           <h2>Why should I care?</h2>
           <p>Loading large amounts of asm.js code or using a language other than JS in the browser.</p>
-          <p class="fragment">Otherwise, WASM might not be of any interest to you.</p>
+          <p class="fragment">Otherwise, WASM <span class="orange">might not</span> be of any interest to you.</p>
         </section>
         <section>
           <h2>Timeline of previous attempts</h2>
@@ -72,8 +75,26 @@
           </section>
         </section>
         <section>
+          <section>
+            <h2>Language Support</h2>
+          </section>
+          <section>
+            <h2>Can we run other languages in the browser?</h2>
+            <p>
+              <a href="https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS">List of languages that compile to JS</a>
+            </p>
+          </section>
+          <section>
+            <h2>Translation vs runtime</h2>
+            <p>Two approaches:</p>
+            <ul>
+              <li>Translate one language statement per statement to JS.</li>
+              <li>Compile runtime from C/C++ to JS with emscripten.</li>
+            </ul>
+          </section>
+        </section>
+        <section>
           <p>
-          https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS
           http://googlesystem.blogspot.ca/2011/09/dash-googles-alternative-to-javascript.html
           </p>
         </section>
