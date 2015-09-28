@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Web Assembly</title>
+    <link href='http://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet'/>
     <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
     <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/fxos.css" id="theme"/>
     <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
@@ -35,17 +36,12 @@
         </section>
         <section>
           <h2>What is WASM?</h2>
-          <blockquote cite="https://github.com/WebAssembly/design/blob/master/HighLevelGoals.md">
-            Define a portable, size- and load-time-efficient binary format to serve as a compilation target which can be compiled to execute at native speed by taking advantage of common hardware capabilities available on a wide range of platforms, including mobile and IoT.
-          </blockquote>
+          <p>A bytecode explicitly designed for portability, stability, compressability, and minimal nondeterminism.</p>
         </section>
         <section>
           <h2>Why should I care?</h2>
-          <ul>
-            <li class="fragment">I am loading large amounts (&gt;10 MB) of JS.</li>
-            <li class="fragment">I am using libraries that contain asm.js modules.</li>
-            <li class="fragment">I would like to use a language other than JS in the browser.</li>
-          </ul>
+          <p>Loading large amounts of asm.js code or using a language other than JS in the browser.</p>
+          <p class="fragment">Otherwise, WASM might not be of any interest to you.</p>
         </section>
         <section>
           <h2>Timeline of previous attempts</h2>
@@ -63,6 +59,10 @@
           https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS
           http://googlesystem.blogspot.ca/2011/09/dash-googles-alternative-to-javascript.html
           </p>
+        </section>
+        <section>
+          <h2>Where can I learn more?</h2>
+          <a href="https://github.com/WebAssembly/design">github.com/WebAssembly/design</a>
         </section>
         <!-- End of your content -->
       </div>
