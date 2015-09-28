@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Template</title>
+    <title>Web Assembly</title>
     <link rel="stylesheet" href="../reveal.js-2.6.2/css/reveal.min.css"/>
     <link rel="stylesheet" href="../reveal.js-2.6.2/css/theme/fxos.css" id="theme"/>
     <link rel="stylesheet" href="../reveal.js-2.6.2/lib/css/zenburn.css"/>
@@ -30,24 +30,41 @@
       <div class="slides">
         <!-- Your content goes here -->
         <section>
-          <h1>JavaScript</h1>
-          <pre><code class="javascript">console.log("Hello World");</code></pre>
+          <h1>Web Assembly</h1>
+          <small>Nick Desaulniers - <a href="https://twitter.com/LostOracle">@LostOracle</a></small>
         </section>
         <section>
-          <h2>Numbers</h2>
-          Numbers in JavaScript are IEEE-754 double precision format.
-          <small>http://upload.wikimedia.org/wikipedia/commons/a/a9/IEEE_754_Double_Floating_Point_Format.svg</small>
-          <br/>
-          +/- (2^53 - 1) maximum int value.
-          <pre><code class="javascript">
-            Math.pow(2, 53) === Math.pow(2, 53) + 1; // true
-          </code></pre>
-          Infinity, -Infinity, NaN, 0, -0.
-          <pre><code class="javascript">
-            0.1 + 0.2 === 0.3; // false
-          </code></pre>
-          <!-- End of your content -->
+          <h2>What is WASM?</h2>
+          <blockquote cite="https://github.com/WebAssembly/design/blob/master/HighLevelGoals.md">
+            Define a portable, size- and load-time-efficient binary format to serve as a compilation target which can be compiled to execute at native speed by taking advantage of common hardware capabilities available on a wide range of platforms, including mobile and IoT.
+          </blockquote>
         </section>
+        <section>
+          <h2>Why should I care?</h2>
+          <ul>
+            <li class="fragment">I am loading large amounts (&gt;10 MB) of JS.</li>
+            <li class="fragment">I am using libraries that contain asm.js modules.</li>
+            <li class="fragment">I would like to use a language other than JS in the browser.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Timeline of previous attempts</h2>
+          <ul>
+            <li class="fragment">Java applets (1995), ActiveX (1996), Flash/ActionScript (2000), SilverLight (2007)</li>
+            <li class="fragment">Google NaCl released in <a href="https://groups.google.com/forum/#!topic/native-client-announce/fbnU_648obg">December 2008</a>.</li>
+            <li class="fragment">Dan Gohman's "LLVM IR is a compiler IR" email <a href="http://permalink.gmane.org/gmane.comp.compilers.llvm.devel/43769">October 2011</a>.</li>
+            <li class="fragment">Filip Pizlo's "WebKit branch to support multiple VMs" email <a href="https://lists.webkit.org/pipermail/webkit-dev/2011-December/018811.html">December 2011</a>.</li>
+            <li class="fragment">Google PNaCl released <a href="http://blog.chromium.org/2013/11/portable-native-client-pinnacle-of.html">November 2013</a>.</li>
+            <li class="fragment">Google Dart released <a></a></li>
+          </ul>
+        </section>
+        <section>
+          <p>
+          https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS
+          http://googlesystem.blogspot.ca/2011/09/dash-googles-alternative-to-javascript.html
+          </p>
+        </section>
+        <!-- End of your content -->
       </div>
     </div>
     <script src="../reveal.js-2.6.2/lib/js/head.min.js"></script>
