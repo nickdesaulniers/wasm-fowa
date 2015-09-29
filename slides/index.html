@@ -23,6 +23,9 @@
       .orange {
         color: #FF9500;
       }
+      th {
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
@@ -47,15 +50,7 @@
           <p class="fragment">Otherwise, WASM <span class="orange">might not</span> be of any interest to you.</p>
         </section>
         <section>
-          <h2>Timeline of previous attempts</h2>
-          <ul>
-            <li class="fragment">Java applets (1995), ActiveX (1996), Flash/ActionScript (2000), SilverLight (2007)</li>
-            <li class="fragment">Google NaCl released in <a href="https://groups.google.com/forum/#!topic/native-client-announce/fbnU_648obg">December 2008</a>.</li>
-            <li class="fragment">Dan Gohman's "LLVM IR is a compiler IR" email <a href="http://permalink.gmane.org/gmane.comp.compilers.llvm.devel/43769">October 2011</a>.</li>
-            <li class="fragment">Filip Pizlo's "WebKit branch to support multiple VMs" email <a href="https://lists.webkit.org/pipermail/webkit-dev/2011-December/018811.html">December 2011</a>.</li>
-            <li class="fragment">Google PNaCl released <a href="http://blog.chromium.org/2013/11/portable-native-client-pinnacle-of.html">November 2013</a>.</li>
-            <li class="fragment">Google Dart released <a></a></li>
-          </ul>
+          <img src="../img/nice_try.png" alt="alternative browser runtimes">
         </section>
         <section>
           <section>
@@ -73,11 +68,48 @@
           <section>
             <img src="../img/LLVM3.png" alt="llvm plus wasm">
           </section>
+          <section>
+            <p>That's a lot of LLVM IR, let's just use that!</p>
+          </section>
+          <section>
+            <table>
+              <tr>
+                <th>wasm</th>
+                <th>llvm ir</th>
+              </tr>
+              <tr>
+                <td>portable</td>
+                <td>has architecture specific opcodes</td>
+              </tr>
+              <tr>
+                <td>stable</td>
+                <td>breaking changes between versions</td>
+              </tr>
+              <tr>
+                <td>small encoding</td>
+                <td>not a design goal</td>
+              </tr>
+              <tr>
+                <td>fast decoding</td>
+                <td>not a design goal</td>
+              </tr>
+              <tr>
+                <td>fast compiling</td>
+                <td>not a design goal</td>
+              </tr>
+              <tr>
+                <td>minimal nondeterminism</td>
+                <td>nondeterminism and undefined behavior</td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <p>"... LLVM IR is a poor system for building a
+            Platform ... LLVM isn't actually a virtual machine. It's widely acknoledged that the
+            name 'LLVM' is a historical artifact ... LLVM IR is a compiler IR." ~ <a href="http://permalink.gmane.org/gmane.comp.compilers.llvm.devel/43769">Dan Gohman</a></p>
+          </section>
         </section>
         <section>
-          <section>
-            <h2>Language Support</h2>
-          </section>
           <section>
             <h2>Can we run other languages in the browser?</h2>
             <p>
@@ -89,7 +121,7 @@
             <img src="../img/translation.png" alt="translation vs runtime">
             <p>Two approaches:</p>
             <ul>
-              <li class="fragment">Translate one language statement per statement to JS.</li>
+              <li class="fragment">Translate one language, statement per statement, to JS.</li>
               <ul class="fragment">
                 <li>Prone to correctness bugs.</li>
               </ul>
@@ -105,7 +137,18 @@
             <p>We want to dynamically create DOM elements from a managed language and have its GC be in charge of lifetime.</p>
           </section>
           <section>
-            <h2>Multiple GCs</h2>
+            <img src="../img/ants.jpg" alt="Do you want ants?">
+            <p>Who cleans up around here?</p>
+          </section>
+          <section>
+            <h2>ABI</h2>
+            <p>a contract that two binaries compiled possibly from two different compilers at two different points in time can interoperate</p>
+            <ul class="fragment">
+              <li>size of types, padding of structs, alignment</li>
+              <li>calling convention (sending &amp; retrieving values from function calls)</li>
+              <li>binary representation (Mach-O, ELF, PE32+)</li>
+              <li>function name mangling</li>
+            </ul>
           </section>
         </section>
         <section>
