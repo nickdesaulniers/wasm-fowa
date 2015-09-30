@@ -41,8 +41,18 @@
           <small>Nick Desaulniers - <a href="https://twitter.com/LostOracle">@LostOracle</a></small>
         </section>
         <section>
-          <h2>What is it?</h2>
-          <h2>Why should I care?</h2>
+          <h2>Today's topics</h2>
+          <ul>
+            <li>What is it?</li>
+            <li>Why should I care?</li>
+            <li>Hasn't this been done before?</li>
+            <li>Does it allow us to run &lt;favorite language&gt; in the browser?</li>
+            <li>Why not use LLVM bytecode?</li>
+            <li>Where can I learn more?</li>
+          </ul>
+        </section>
+        <section>
+          <p>...but first, a <a href="https://github.com/nickdesaulniers/Omicron/blob/master/ProjectReport.pdf">story</a> about Instruction Set Architecture and machine design.</p>
         </section>
         <section>
           <h2>What is WASM?</h2>
@@ -64,6 +74,72 @@
           <p>All prior attempts taught us things like</p>
           <p class="fragment">sandboxing is a good idea</p>
           <p class="fragment">we want something that is easily integrated across all browsers</p>
+        </section>
+        <section>
+          <h2>How is WASM different?</h2>
+        </section>
+        <section>
+          <h2>Performance</h2>
+          <p class="fragment"><a href="https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#why-a-binary-encoding-instead-of-a-text-only-representation">30%</a> smaller than gzipped asm.js</p>
+          <p class="fragment">Can be parsed <a href="https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#why-a-binary-encoding-instead-of-a-text-only-representation">23x</a> faster than large asm.js modules</p>
+        </section>
+        <section>
+          <h2>View Source</h2>
+          <p>Like LLVM IR, you'll be able to convert binary to text.</p>
+          <p class="fragment">No need for unary plus and bitwise or operators (asm.js type hints).</p>
+          <p class="fragment">Text can be shown in dev tools, source maps can show original source.</p>
+          <p class="fragment">No text representation today, still working on necessary opcodes.</p>
+        </section>
+        <section>
+          <section>
+            <h2>Can we run other languages in the browser?</h2>
+            <p class="fragment">
+              <a href="https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS">List of languages that compile to JS</a>
+            </p>
+          </section>
+          <section>
+            <h2>Translation vs runtime</h2>
+            <img src="../img/translation.png" alt="translation vs runtime">
+            <p>Two approaches:</p>
+            <ul>
+              <li class="fragment">Translate one language, statement per statement, to JS.</li>
+              <ul class="fragment">
+                <li>Prone to correctness bugs.</li>
+              </ul>
+              <li class="fragment">Compile runtime from C/C++ to JS with emscripten.</li>
+              <ul>
+                <li class="fragment">GC coordination and binary bloat.</li>
+              </ul>
+            </ul>
+          </section>
+          <section>binary bloat?</section>
+          <section>
+            <h2>GC coordination</h2>
+            <img src="../img/gc_coord.png" alt="gc coordination">
+            <p>We want to dynamically create DOM elements from a managed language and have its GC be in charge of lifetime.</p>
+          </section>
+          <section>
+            <img src="../img/ants.jpg" alt="Do you want ants?">
+            <p>Who cleans up around here?</p>
+          </section>
+          <section>
+            <p>"Supporting multiple VMs is a big infrastructural challenge ... You'll need to make sure that the different GCs can coordinate ...  Otherwise you will either not have an story of object reclamation, or you'll have memory leaks ... Doing this right is hard ... See [my paper and another which found] &gt;5% throughput regression." ~ <a href="https://lists.webkit.org/pipermail/webkit-dev/2011-December/018811.html">Filip Pizlo</a></p>
+          </section>
+          <section>Agree on ABI</section>
+          <section>
+            <h2>ABI</h2>
+            <p>a contract that two binaries compiled possibly from two different compilers at two different points in time can interoperate</p>
+          </section>
+          <section>
+            <h2>ABI</h2>
+            <p>Need to agree upon:</p>
+            <ul>
+              <li>size of types (ILP32), padding of structs, alignment</li>
+              <li>calling convention (sending &amp; retrieving values from function calls)</li>
+              <li>binary representation (Mach-O, ELF, PE32+)</li>
+              <li>function name mangling</li>
+            </ul>
+          </section>
         </section>
         <section>
           <section>
@@ -122,69 +198,6 @@
             name 'LLVM' is a historical artifact ... LLVM IR is a compiler IR." ~ <a href="http://permalink.gmane.org/gmane.comp.compilers.llvm.devel/43769">Dan Gohman</a></p>
             <p class="fragment">WASM is more of an ISA than a compiler IR.</p>
           </section>
-        </section>
-        <section>
-          <section>
-            <h2>Can we run other languages in the browser?</h2>
-            <p class="fragment">
-              <a href="https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS">List of languages that compile to JS</a>
-            </p>
-          </section>
-          <section>
-            <h2>Translation vs runtime</h2>
-            <img src="../img/translation.png" alt="translation vs runtime">
-            <p>Two approaches:</p>
-            <ul>
-              <li class="fragment">Translate one language, statement per statement, to JS.</li>
-              <ul class="fragment">
-                <li>Prone to correctness bugs.</li>
-              </ul>
-              <li class="fragment">Compile runtime from C/C++ to JS with emscripten.</li>
-              <ul>
-                <li class="fragment">GC coordination and binary bloat.</li>
-              </ul>
-            </ul>
-          </section>
-          <section>binary bloat?</section>
-          <section>
-            <h2>GC coordination</h2>
-            <img src="../img/gc_coord.png" alt="gc coordination">
-            <p>We want to dynamically create DOM elements from a managed language and have its GC be in charge of lifetime.</p>
-          </section>
-          <section>
-            <img src="../img/ants.jpg" alt="Do you want ants?">
-            <p>Who cleans up around here?</p>
-          </section>
-          <section>
-            <p>"Supporting multiple VMs is a big infrastructural challenge ... You'll need to make sure that the different GCs can coordinate ...  Otherwise you will either not have an story of object reclamation, or you'll have memory leaks ... Doing this right is hard ... See [my paper and another which found] &gt;5% throughput regression." ~ <a href="https://lists.webkit.org/pipermail/webkit-dev/2011-December/018811.html">Filip Pizlo</a></p>
-          </section>
-          <section>Agree on ABI</section>
-          <section>
-            <h2>ABI</h2>
-            <p>a contract that two binaries compiled possibly from two different compilers at two different points in time can interoperate</p>
-          </section>
-          <section>
-            <h2>ABI</h2>
-            <p>Need to agree upon:</p>
-            <ul>
-              <li>size of types (ILP32), padding of structs, alignment</li>
-              <li>calling convention (sending &amp; retrieving values from function calls)</li>
-              <li>binary representation (Mach-O, ELF, PE32+)</li>
-              <li>function name mangling</li>
-            </ul>
-          </section>
-        </section>
-        <section>
-          <h2>Performance</h2>
-          <p class="fragment"><a href="https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#why-a-binary-encoding-instead-of-a-text-only-representation">30%</a> smaller than gzipped asm.js</p>
-          <p class="fragment">Can be parsed <a href="https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#why-a-binary-encoding-instead-of-a-text-only-representation">23x</a> faster than large asm.js modules</p>
-        </section>
-        <section>
-          <h2>View Source</h2>
-          <p>Like LLVM IR, you'll be able to convert binary to text.</p>
-          <p class="fragment">No need for unary plus and bitwise or operators (asm.js type hints).</p>
-          <p class="fragment">Text can be shown in dev tools, source maps can show original source.</p>
-          <p class="fragment">No text representation today, still working on necessary opcodes.</p>
         </section>
         <section>
           <h2>Where can I learn more?</h2>
