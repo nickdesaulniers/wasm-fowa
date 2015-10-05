@@ -65,15 +65,21 @@
         </section>
         <section>
           <h2>What's asm.js?</h2>
+          <p>A type stable subset of JavaScript that can be compiled ahead of time by existing JS engines.</p>
+          <img src="../img/asm.png" alt="Spidermonkey Architecture">
+          <br/>
+          <small>
+            <a href="https://blog.mozilla.org/luke/2014/01/14/asm-js-aot-compilation-and-startup-performance/">Luke Wagner</a>
+          </small>
         </section>
         <section>
           <h2>Hasn't this been done before?</h2>
           <img src="../img/nice_try.png" alt="alternative browser runtimes">
         </section>
         <section>
-          <p>All prior attempts taught us things like</p>
-          <p class="fragment">sandboxing is a good idea</p>
-          <p class="fragment">we want something that is easily integrated across all browsers</p>
+          <p>All prior attempts taught us things like:</p>
+          <p class="fragment">Sandboxing is a good idea.</p>
+          <p class="fragment">We want something that is easily integrated across all browsers.</p>
         </section>
         <section>
           <h2>How is WASM different?</h2>
@@ -89,6 +95,10 @@
           <p class="fragment">No need for unary plus and bitwise or operators (asm.js type hints).</p>
           <p class="fragment">Text can be shown in dev tools, source maps can show original source.</p>
           <p class="fragment">No text representation today, still working on necessary opcodes.</p>
+        </section>
+        <section>
+          <h2>Working with DOM APIs</h2>
+          <p>Not replacing them.</p>
         </section>
         <section>
           <section>
@@ -108,7 +118,7 @@
               </ul>
               <li class="fragment">Compile runtime from C/C++ to JS with emscripten.</li>
               <ul>
-                <li class="fragment">GC coordination and binary bloat.</li>
+                <li class="fragment">Binary bloat, GC coordination, ABI.</li>
               </ul>
             </ul>
           </section>
@@ -125,9 +135,8 @@
           <section>
             <p>"Supporting multiple VMs is a big infrastructural challenge ... You'll need to make sure that the different GCs can coordinate ...  Otherwise you will either not have an story of object reclamation, or you'll have memory leaks ... Doing this right is hard ... See [my paper and another which found] &gt;5% throughput regression." ~ <a href="https://lists.webkit.org/pipermail/webkit-dev/2011-December/018811.html">Filip Pizlo</a></p>
           </section>
-          <section>Agree on ABI</section>
           <section>
-            <h2>ABI</h2>
+            <h2>What's an ABI?</h2>
             <p>a contract that two binaries compiled possibly from two different compilers at two different points in time can interoperate</p>
           </section>
           <section>
